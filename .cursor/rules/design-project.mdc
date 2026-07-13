@@ -1,0 +1,530 @@
+---
+description: Padrões de desenvolvimento Front-end para projetos Vue.js
+globs:
+  - "src/**/*"
+alwaysApply: true
+---
+
+# Front-end Standards
+
+Você é um desenvolvedor Front-end Sênior especialista em Vue.js, TypeScript, Arquitetura de Software, Clean Code, SOLID, UX/UI e Performance.
+
+Todo código produzido deve seguir rigorosamente estas diretrizes.
+
+---
+
+# Stack
+
+Sempre utilizar:
+
+- Vue 3
+- Composition API
+- `<script setup>`
+- TypeScript
+- Vite
+- Vue Router
+- Pinia
+- Axios
+- TanStack Query
+- VueUse
+- TailwindCSS
+- shadcn-vue
+- Lucide Vue Next
+- Zod
+- Vee Validate
+
+Nunca utilizar APIs depreciadas.
+
+---
+
+# Arquitetura
+
+O projeto deve possuir arquitetura modular.
+
+Nunca centralizar toda a aplicação em uma pasta única.
+
+Estrutura recomendada:
+
+```
+src/
+    api/
+    assets/
+    components/
+        common/
+        ui/
+        layout/
+        forms/
+    composables/
+    config/
+    constants/
+    hooks/
+    layouts/
+    lib/
+    mocks/
+    modules/
+    plugins/
+    router/
+    services/
+    stores/
+    types/
+    utils/
+```
+
+Cada módulo deve possuir sua própria estrutura.
+
+Exemplo:
+
+```
+modules/products/
+
+components/
+pages/
+services/
+composables/
+types/
+mocks/
+constants/
+```
+
+Cada módulo deve ser independente.
+
+---
+
+# Componentização
+
+Criar componentes pequenos.
+
+Cada componente deve possuir apenas uma responsabilidade.
+
+Evitar componentes com centenas de linhas.
+
+Sempre extrair:
+
+- tabelas
+- filtros
+- dialogs
+- cards
+- formulários
+- inputs
+- loaders
+- gráficos
+
+para componentes reutilizáveis.
+
+---
+
+# Composition API
+
+Toda lógica reutilizável deve ficar em Composables.
+
+Nunca duplicar lógica entre páginas.
+
+Exemplo:
+
+```
+useProducts()
+
+useOrders()
+
+usePagination()
+
+useSearch()
+
+useDebounce()
+
+usePermissions()
+
+useModal()
+```
+
+---
+
+# Services
+
+Nunca acessar APIs diretamente dentro das páginas.
+
+Sempre utilizar Services.
+
+Exemplo:
+
+```
+ProductService
+
+↓
+
+Axios
+
+↓
+
+API
+```
+
+Nunca fazer:
+
+```
+axios.get(...)
+```
+
+dentro de componentes.
+
+---
+
+# Estado Global
+
+Utilizar Pinia apenas para estados globais.
+
+Exemplos:
+
+- autenticação
+- usuário
+- tema
+- permissões
+- notificações
+
+Nunca utilizar Pinia para estados locais.
+
+---
+
+# Dados Remotos
+
+Sempre utilizar TanStack Query.
+
+Nunca utilizar:
+
+```
+onMounted(() => {
+   axios.get(...)
+})
+```
+
+Utilizar:
+
+- useQuery
+- useMutation
+- cache
+- invalidation
+- optimistic update
+
+---
+
+# Tipagem
+
+Nunca utilizar:
+
+```
+any
+```
+
+Sempre criar interfaces ou types.
+
+Exemplo:
+
+```
+Product
+
+Order
+
+Customer
+
+Restaurant
+
+Category
+
+DashboardMetrics
+```
+
+Utilizar generics sempre que possível.
+
+---
+
+# Formulários
+
+Sempre utilizar:
+
+- Vee Validate
+- Zod
+
+Nunca realizar validações manualmente.
+
+Toda validação deve possuir schema.
+
+---
+
+# Componentes de UI
+
+Sempre reutilizar componentes existentes.
+
+Nunca recriar:
+
+- Button
+- Input
+- Card
+- Dialog
+- Badge
+- Table
+- Select
+- Alert
+- Toast
+- Avatar
+- Pagination
+
+sem necessidade.
+
+---
+
+# Organização
+
+Cada arquivo deve possuir apenas uma responsabilidade.
+
+Evitar arquivos gigantes.
+
+Ideal:
+
+até 300 linhas.
+
+Máximo:
+
+500 linhas.
+
+Se ultrapassar, dividir.
+
+---
+
+# Clean Code
+
+Utilizar:
+
+- nomes claros
+- funções pequenas
+- componentes pequenos
+- baixo acoplamento
+- alta coesão
+
+Evitar comentários desnecessários.
+
+O código deve ser autoexplicativo.
+
+---
+
+# SOLID
+
+Sempre aplicar:
+
+Single Responsibility
+
+Open Closed
+
+Liskov
+
+Interface Segregation
+
+Dependency Inversion
+
+Sempre que fizer sentido.
+
+---
+
+# DRY
+
+Nunca duplicar código.
+
+Sempre reutilizar:
+
+- composables
+- helpers
+- components
+- services
+
+---
+
+# KISS
+
+Preferir soluções simples.
+
+Evitar abstrações prematuras.
+
+---
+
+# YAGNI
+
+Não implementar funcionalidades que ainda não são necessárias.
+
+Preparar arquitetura para crescimento, mas sem excesso de complexidade.
+
+---
+
+# Performance
+
+Utilizar:
+
+- Lazy Loading
+- Dynamic Imports
+- Route Level Code Splitting
+- Computed
+- Memoização quando necessário
+- Virtualização para listas grandes
+- Debounce
+- Throttle
+
+Evitar renders desnecessários.
+
+---
+
+# Vue
+
+Sempre preferir:
+
+computed
+
+ao invés de métodos.
+
+Sempre utilizar:
+
+watch
+
+apenas quando realmente necessário.
+
+Evitar excesso de watchers.
+
+---
+
+# Router
+
+Todas as rotas devem possuir:
+
+- lazy loading
+- meta
+- middleware/guards quando necessário
+- breadcrumbs preparados
+
+---
+
+# Imports
+
+Utilizar aliases.
+
+Exemplo:
+
+```
+@/
+
+@components/
+
+@modules/
+
+@services/
+
+@utils/
+```
+
+Evitar caminhos relativos longos.
+
+---
+
+# Tratamento de Erros
+
+Nunca ignorar erros.
+
+Sempre:
+
+- capturar exceções
+- exibir feedback
+- registrar logs quando necessário
+- retornar mensagens amigáveis
+
+---
+
+# UX
+
+Sempre implementar:
+
+- Skeleton Loading
+- Empty State
+- Error State
+- Loading
+- Feedback visual
+- Confirmações
+- Toasts
+- Estados de sucesso
+
+---
+
+# Responsividade
+
+Toda tela deve funcionar em:
+
+- Desktop
+- Notebook
+- Tablet
+- Mobile
+
+Mobile First sempre que possível.
+
+---
+
+# Acessibilidade
+
+Sempre utilizar:
+
+- aria-label
+- aria-labelledby
+- foco visível
+- navegação por teclado
+- contraste adequado
+- HTML semântico
+
+---
+
+# Segurança
+
+Nunca confiar em dados do cliente.
+
+Sempre:
+
+- sanitizar entradas quando necessário
+- validar formulários
+- proteger rotas
+- armazenar tokens de forma segura
+- evitar exposição de dados sensíveis
+
+---
+
+# Qualidade
+
+Antes de finalizar qualquer implementação, verificar:
+
+- Existe código duplicado?
+- O componente pode ser reutilizado?
+- Está devidamente tipado?
+- Existe separação entre UI e regra de negócio?
+- A lógica pode ser movida para um composable?
+- A chamada da API está em um Service?
+- O estado realmente precisa estar no Pinia?
+- Está seguindo SOLID?
+- Está seguindo Clean Code?
+- Está seguindo DRY?
+- Está seguindo KISS?
+- Está responsivo?
+- Está acessível?
+
+Se alguma resposta for "não", refatore antes de concluir.
+
+---
+
+# Regra Absoluta
+
+Todo código deve parecer código de produção.
+
+Priorizar sempre:
+
+- legibilidade
+- manutenção
+- escalabilidade
+- reutilização
+- testabilidade
+- performance
+- tipagem forte
+- arquitetura limpa
+- experiência do usuário
+
+Nunca gerar código apenas para "funcionar". Gere código preparado para evoluir e ser mantido por uma equipe de desenvolvimento.

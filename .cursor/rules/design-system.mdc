@@ -1,0 +1,388 @@
+---
+description: Design System oficial do CardaTche
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# CardaTche - Design System Oficial
+
+## Objetivo
+
+O CardaTche é uma plataforma SaaS para gestão de restaurantes. Toda a interface deve transmitir modernidade, simplicidade, tecnologia, confiança e facilidade de uso.
+
+Toda implementação deve seguir rigorosamente a identidade visual oficial deste projeto.
+
+---
+
+# Identidade Visual
+
+## Uso obrigatório dos arquivos oficiais
+
+As imagens da marca ficam dentro da pasta:
+
+```text
+/public
+```
+
+Arquivos disponíveis:
+
+```text
+/public/logo_1.svg
+/public/logo_1.png
+/public/logo_2.png
+/public/logo_4.png
+/public/paleta_cores.png
+/public/CardaTche_1.jpeg
+```
+
+Sempre utilizar os arquivos oficiais.
+
+Nunca:
+
+- redesenhar o logotipo;
+- alterar proporções;
+- alterar espessuras;
+- modificar cores;
+- adicionar efeitos;
+- utilizar outro símbolo.
+
+Sempre priorizar o arquivo SVG (`logo_1.svg`) quando possível, utilizando PNG apenas quando necessário.
+
+---
+
+# Paleta de cores
+
+Utilizar exclusivamente estas cores.
+
+## Primária
+
+```css
+#0047FF
+```
+
+Uso:
+
+- Botões primários
+- Links
+- Estados ativos
+- Ícones
+- Destaques
+- Foco dos inputs
+
+---
+
+## Secundária
+
+```css
+#12121A
+```
+
+Uso:
+
+- Títulos
+- Texto principal
+- Navbar
+- Sidebar
+- Rodapé
+- Ícones
+
+---
+
+## Accent
+
+```css
+#FF6B00
+```
+
+Uso:
+
+- CTA secundário
+- Badges
+- Indicadores
+- Alertas positivos
+- Pequenos detalhes
+
+Nunca utilizar esta cor como cor predominante da interface.
+
+---
+
+## Branco
+
+```css
+#FFFFFF
+```
+
+Plano de fundo principal.
+
+---
+
+## Cinza
+
+```css
+#F5F7FA
+```
+
+Uso:
+
+- Backgrounds
+- Cards
+- Inputs
+- Tabelas
+- Containers
+- Skeletons
+
+---
+
+# Tipografia
+
+Fonte obrigatória:
+
+```text
+Inter
+```
+
+Pesos permitidos:
+
+- Regular
+- Medium
+- Bold
+
+Não utilizar outras famílias tipográficas.
+
+---
+
+# Estilo visual
+
+Toda interface deve seguir um visual semelhante a aplicações modernas como Stripe, Linear, Vercel, Notion e Framer.
+
+Características:
+
+- muito espaço em branco;
+- layout limpo;
+- poucos elementos por tela;
+- hierarquia visual clara;
+- cantos arredondados;
+- sombras suaves;
+- aparência premium.
+
+Evitar interfaces poluídas.
+
+---
+
+# Componentes
+
+Todos os componentes devem ser reutilizáveis.
+
+Sempre criar componentes para:
+
+- Button
+- Input
+- Select
+- Textarea
+- Card
+- Modal
+- Dialog
+- Drawer
+- Badge
+- Alert
+- Table
+- Pagination
+- Sidebar
+- Navbar
+- Toast
+- Skeleton
+- Empty State
+- Loading
+- Tabs
+
+---
+
+# Botões
+
+Botão primário:
+
+Background:
+
+```css
+#0047FF
+```
+
+Texto:
+
+```css
+#FFFFFF
+```
+
+Radius:
+
+```css
+12px
+```
+
+Hover:
+
+- azul levemente mais escuro.
+
+Transition:
+
+```css
+200ms
+```
+
+---
+
+# Cards
+
+Sempre possuir:
+
+- fundo branco;
+- borda discreta;
+- radius entre 16px e 20px;
+- sombra suave.
+
+---
+
+# Inputs
+
+Background:
+
+```css
+#FFFFFF
+```
+
+Border:
+
+```css
+#F5F7FA
+```
+
+Focus:
+
+```css
+#0047FF
+```
+
+Radius:
+
+```css
+12px
+```
+
+---
+
+# Espaçamento
+
+Seguir escala consistente:
+
+```text
+4
+8
+12
+16
+20
+24
+32
+40
+48
+64
+```
+
+Nunca utilizar valores aleatórios.
+
+---
+
+# Bordas
+
+Buttons:
+
+```css
+12px
+```
+
+Cards:
+
+```css
+16px
+```
+
+Modais:
+
+```css
+20px
+```
+
+---
+
+# Sombras
+
+Sempre suaves.
+
+Nunca utilizar sombras pesadas.
+
+---
+
+# Ícones
+
+Utilizar preferencialmente:
+
+- Lucide React
+
+Todos os ícones devem seguir um estilo minimalista.
+
+---
+
+# Responsividade
+
+Toda tela deve funcionar corretamente em:
+
+- Desktop
+- Notebook
+- Tablet
+- Mobile
+
+Dar preferência ao desenvolvimento Mobile First.
+
+---
+
+# Acessibilidade
+
+Sempre implementar:
+
+- contraste adequado;
+- foco visível;
+- navegação por teclado;
+- labels;
+- aria-label;
+- aria-describedby quando necessário.
+
+---
+
+# Código
+
+Priorizar sempre:
+
+- Componentização
+- Clean Code
+- Performance
+- Reutilização
+- Tipagem forte
+- Baixo acoplamento
+- Alto reaproveitamento
+- Consistência visual
+
+---
+
+# Regra obrigatória
+
+Antes de criar qualquer tela, componente ou página, confirme que:
+
+- utiliza os logotipos oficiais da pasta `/public`;
+- prioriza `/public/logo_1.svg`;
+- utiliza exclusivamente a paleta oficial;
+- utiliza a fonte Inter;
+- mantém a identidade visual do CardaTche;
+- reutiliza componentes existentes antes de criar novos;
+- mantém aparência moderna, limpa e consistente.
+
+Nenhuma implementação deve fugir da identidade visual oficial do CardaTche.
