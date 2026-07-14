@@ -7,7 +7,11 @@ import { useMenuTheme } from '@/composables/useMenuTheme'
 import { APP_NAME } from '@/constants/app'
 
 const { slug, isValidSlug, menuQuery, sections } = usePublicMenu()
-const { isError, isLoading, data } = menuQuery
+
+const isLoading = computed(() => menuQuery.isLoading.value)
+const isError = computed(() => menuQuery.isError.value)
+const data = computed(() => menuQuery.data.value)
+const appDomain = import.meta.env.VITE_APP_DOMAIN ?? 'cardatche.com'
 
 const appearance = computed(() => data.value?.restaurant.appearance)
 useMenuTheme(appearance)
@@ -42,8 +46,11 @@ function scrollToCategory(categoryId: string): void {
           Cardápio não encontrado
         </h1>
         <p class="mt-2 text-sm text-muted">
-          Acesse pelo endereço do restaurante, por exemplo:
-          <span class="font-medium">nome-do-restaurante.cardatche.com</span>
+          Acesse pelo subdomínio do restaurante, por exemplo:
+          <span class="font-medium">nome-do-restaurante.{{ appDomain }}</span>
+        </p>
+        <p class="mt-2 text-sm text-muted">
+          Ou use <span class="font-medium">?slug=nome-do-restaurante</span> / <span class="font-medium">/nome-do-restaurante</span>
         </p>
       </div>
     </div>
@@ -61,7 +68,7 @@ function scrollToCategory(categoryId: string): void {
           Restaurante não encontrado
         </h1>
         <p class="mt-2 text-sm text-muted">
-          O endereço <span class="font-medium">{{ slug }}.cardatche.com</span> não corresponde a nenhum restaurante cadastrado.
+          O endereço <span class="font-medium">{{ slug }}.{{ appDomain }}</span> não corresponde a nenhum restaurante cadastrado.
         </p>
       </div>
     </div>

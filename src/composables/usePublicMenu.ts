@@ -11,9 +11,9 @@ export function usePublicMenu() {
   const { slug, isValidSlug } = useRestaurantSlug()
 
   const menuQuery = useQuery({
-    queryKey: computed(() => publicMenuKeys.all(slug.value)),
+    queryKey: computed(() => publicMenuKeys.all(slug.value || 'unknown')),
     queryFn: () => PublicMenuService.getBySlug(slug.value),
-    enabled: computed(() => Boolean(slug.value)),
+    enabled: computed(() => slug.value.length > 0),
     retry: 1,
   })
 

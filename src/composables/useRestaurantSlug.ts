@@ -1,25 +1,17 @@
 import { computed } from 'vue'
-
-const RESERVED_SUBDOMAINS = new Set(['www', 'admin', 'api', 'app', 'menu', 'staging', 'dev'])
+import { useRoute } from 'vue-router'
+import { resolveRestaurantSlug } from '@/utils/resolveRestaurantSlug'
 
 export function useRestaurantSlug() {
-  const slug = computed(() => {
-    const override = import.meta.env.VITE_DEFAULT_SLUG
-    const hostname = window.location.hostname
-    const parts = hostname.split('.')
+  const route = useRoute()
 
-    if (parts.length < 3) {
-      return override ?? ''
-    }
-
-    const subdomain = parts[0]?.toLowerCase() ?? ''
-
-    if (!subdomain || RESERVED_SUBDOMAINS.has(subdomain)) {
-      return override ?? ''
-    }
-
-    return subdomain
-  })
+  const slug = computed(() =>
+    resolveRestaurantSlug({
+      routeSlug: route.params.slug,
+      search: typeof window !== 'undefined' ? window.location.search : '',
+      hostname: typeof window !== 'undefined' ? window.location.hostname : '',
+    }),
+  )
 
   const isValidSlug = computed(() => slug.value.length > 0)
 
