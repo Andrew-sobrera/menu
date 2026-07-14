@@ -5,9 +5,9 @@ describe('resolveRestaurantSlug', () => {
   it('uses restaurant subdomain from hostname', () => {
     expect(
       resolveRestaurantSlug({
-        hostname: 'teste.devchat.shop',
+        hostname: 'outro.devchat.shop',
       }),
-    ).toBe('teste')
+    ).toBe('outro')
   })
 
   it('falls back to default slug for reserved subdomains', () => {
@@ -15,7 +15,7 @@ describe('resolveRestaurantSlug', () => {
       resolveRestaurantSlug({
         hostname: 'menu.devchat.shop',
       }),
-    ).toBe('teste')
+    ).toBe('manu')
   })
 
   it('falls back to default slug when hostname has no subdomain', () => {
@@ -23,7 +23,7 @@ describe('resolveRestaurantSlug', () => {
       resolveRestaurantSlug({
         hostname: 'localhost',
       }),
-    ).toBe('teste')
+    ).toBe('manu')
   })
 })
 
@@ -43,6 +43,15 @@ describe('resolveMenuHost', () => {
         hostname: 'localhost',
         host: 'localhost:5174',
       }),
-    ).toBe('teste.devchat.shop')
+    ).toBe('manu.devchat.shop')
+  })
+
+  it('falls back to default host for reserved subdomains', () => {
+    expect(
+      resolveMenuHost({
+        hostname: 'menu.devchat.shop',
+        host: 'menu.devchat.shop',
+      }),
+    ).toBe('manu.devchat.shop')
   })
 })

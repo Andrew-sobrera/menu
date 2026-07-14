@@ -5,7 +5,7 @@ function getAppDomain(): string {
 }
 
 function getDefaultSlug(): string {
-  return import.meta.env.VITE_DEFAULT_SLUG ?? 'teste'
+  return import.meta.env.VITE_DEFAULT_SLUG ?? 'manu'
 }
 
 function slugFromHostname(hostname: string): string {

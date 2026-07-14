@@ -16,11 +16,7 @@ apiClient.interceptors.request.use((config) => {
     return config
   }
 
-  const menuHost = resolveMenuHost()
-
-  if (menuHost.includes('.')) {
-    config.headers['X-Menu-Host'] = menuHost
-  }
+  config.headers['X-Menu-Host'] = resolveMenuHost()
 
   return config
 })
