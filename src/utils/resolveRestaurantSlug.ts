@@ -1,8 +1,11 @@
 const RESERVED_SUBDOMAINS = new Set(['www', 'admin', 'api', 'app', 'menu', 'staging', 'dev'])
 
-function normalizeSlug(value: string | null | undefined): string {
-  if (!value) return ''
-  return value.trim().toLowerCase()
+function getAppDomain(): string {
+  return import.meta.env.VITE_APP_DOMAIN ?? 'devchat.shop'
+}
+
+function getDefaultSlug(): string {
+  return import.meta.env.VITE_DEFAULT_SLUG ?? 'teste'
 }
 
 function slugFromHostname(hostname: string): string {
@@ -31,19 +34,19 @@ export function resolveRestaurantSlug(options?: {
     return hostnameSlug
   }
 
-  const devHost = import.meta.env.VITE_MENU_HOST
-
-  if (import.meta.env.DEV && devHost) {
-    return slugFromHostname(devHost)
-  }
-
-  return ''
+  return getDefaultSlug()
 }
 
-export function resolveMenuHost(): string {
-  if (import.meta.env.DEV && import.meta.env.VITE_MENU_HOST) {
-    return import.meta.env.VITE_MENU_HOST
+export function resolveMenuHost(options?: {
+  hostname?: string
+  host?: string
+}): string {
+  const hostname = options?.hostname ?? window.location.hostname
+  const hostnameSlug = slugFromHostname(hostname)
+
+  if (hostnameSlug) {
+    return options?.host ?? window.location.host
   }
 
-  return window.location.host
+  return `${getDefaultSlug()}.${getAppDomain()}`
 }

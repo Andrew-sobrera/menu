@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { resolveMenuHost, resolveRestaurantSlug } from '@/utils/resolveRestaurantSlug'
 
 describe('resolveRestaurantSlug', () => {
@@ -10,35 +10,39 @@ describe('resolveRestaurantSlug', () => {
     ).toBe('teste')
   })
 
-  it('ignores reserved subdomains from hostname', () => {
+  it('falls back to default slug for reserved subdomains', () => {
     expect(
       resolveRestaurantSlug({
         hostname: 'menu.devchat.shop',
       }),
-    ).toBe('')
+    ).toBe('teste')
   })
 
-  it('uses VITE_MENU_HOST in development when hostname is localhost', () => {
-    vi.stubEnv('DEV', true)
-    vi.stubEnv('VITE_MENU_HOST', 'teste.devchat.shop')
-
+  it('falls back to default slug when hostname has no subdomain', () => {
     expect(
       resolveRestaurantSlug({
         hostname: 'localhost',
       }),
     ).toBe('teste')
-
-    vi.unstubAllEnvs()
   })
 })
 
 describe('resolveMenuHost', () => {
-  it('uses VITE_MENU_HOST in development', () => {
-    vi.stubEnv('DEV', true)
-    vi.stubEnv('VITE_MENU_HOST', 'teste.devchat.shop')
+  it('uses current host when subdomain is valid', () => {
+    expect(
+      resolveMenuHost({
+        hostname: 'churrascaria.devchat.shop',
+        host: 'churrascaria.devchat.shop',
+      }),
+    ).toBe('churrascaria.devchat.shop')
+  })
 
-    expect(resolveMenuHost()).toBe('teste.devchat.shop')
-
-    vi.unstubAllEnvs()
+  it('falls back to default host when subdomain is missing', () => {
+    expect(
+      resolveMenuHost({
+        hostname: 'localhost',
+        host: 'localhost:5174',
+      }),
+    ).toBe('teste.devchat.shop')
   })
 })
