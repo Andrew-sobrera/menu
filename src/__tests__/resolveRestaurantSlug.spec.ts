@@ -18,6 +18,14 @@ describe('resolveRestaurantSlug', () => {
     ).toBe('manu')
   })
 
+  it('falls back to default slug on workers.dev host', () => {
+    expect(
+      resolveRestaurantSlug({
+        hostname: 'menu.andrewsobrera683.workers.dev',
+      }),
+    ).toBe('manu')
+  })
+
   it('falls back to default slug when hostname has no subdomain', () => {
     expect(
       resolveRestaurantSlug({
@@ -51,6 +59,15 @@ describe('resolveMenuHost', () => {
       resolveMenuHost({
         hostname: 'menu.devchat.shop',
         host: 'menu.devchat.shop',
+      }),
+    ).toBe('manu.devchat.shop')
+  })
+
+  it('falls back to default host on workers.dev host', () => {
+    expect(
+      resolveMenuHost({
+        hostname: 'menu.andrewsobrera683.workers.dev',
+        host: 'menu.andrewsobrera683.workers.dev',
       }),
     ).toBe('manu.devchat.shop')
   })
