@@ -49,9 +49,6 @@ function scrollToCategory(categoryId: string): void {
           Acesse pelo subdomínio do restaurante, por exemplo:
           <span class="font-medium">nome-do-restaurante.{{ appDomain }}</span>
         </p>
-        <p class="mt-2 text-sm text-muted">
-          Ou use <span class="font-medium">?slug=nome-do-restaurante</span> / <span class="font-medium">/nome-do-restaurante</span>
-        </p>
       </div>
     </div>
 

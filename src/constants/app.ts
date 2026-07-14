@@ -1,5 +1,5 @@
 export const API_ENDPOINTS = {
-  publicMenu: (slug: string) => `/v1/public/menus/${slug}`,
+  publicMenu: '/v1/public/menus',
 } as const
 
 export const APP_NAME = 'CardaTche'

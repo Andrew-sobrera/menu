@@ -2,17 +2,22 @@ import { computed } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import { PublicMenuService } from '@/services/PublicMenuService'
 import { useRestaurantSlug } from '@/composables/useRestaurantSlug'
+import { resolveMenuHost } from '@/utils/resolveRestaurantSlug'
 
 export const publicMenuKeys = {
-  all: (slug: string) => ['public-menu', slug] as const,
+  all: (host: string) => ['public-menu', host] as const,
 }
 
 export function usePublicMenu() {
   const { slug, isValidSlug } = useRestaurantSlug()
 
+  const menuHost = computed(() =>
+    typeof window !== 'undefined' ? resolveMenuHost() : 'unknown',
+  )
+
   const menuQuery = useQuery({
-    queryKey: computed(() => publicMenuKeys.all(slug.value || 'unknown')),
-    queryFn: () => PublicMenuService.getBySlug(slug.value),
+    queryKey: computed(() => publicMenuKeys.all(menuHost.value)),
+    queryFn: () => PublicMenuService.get(),
     enabled: computed(() => slug.value.length > 0),
     retry: 1,
   })

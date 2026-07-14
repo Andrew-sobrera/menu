@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance } from 'axios'
+import { resolveMenuHost } from '@/utils/resolveRestaurantSlug'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? '/api'
 
@@ -8,4 +9,18 @@ export const apiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+})
+
+apiClient.interceptors.request.use((config) => {
+  if (typeof window === 'undefined') {
+    return config
+  }
+
+  const menuHost = resolveMenuHost()
+
+  if (menuHost.includes('.')) {
+    config.headers['X-Menu-Host'] = menuHost
+  }
+
+  return config
 })

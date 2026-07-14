@@ -1,51 +1,44 @@
-import { describe, expect, it } from 'vitest'
-import { resolveRestaurantSlug } from '@/utils/resolveRestaurantSlug'
+import { describe, expect, it, vi } from 'vitest'
+import { resolveMenuHost, resolveRestaurantSlug } from '@/utils/resolveRestaurantSlug'
 
 describe('resolveRestaurantSlug', () => {
-  it('uses route slug when present', () => {
+  it('uses restaurant subdomain from hostname', () => {
     expect(
       resolveRestaurantSlug({
-        routeSlug: 'churrascaria-gaucha',
-        hostname: 'menu.devchat.shop',
-        defaultSlug: '',
+        hostname: 'teste.devchat.shop',
       }),
-    ).toBe('churrascaria-gaucha')
+    ).toBe('teste')
   })
 
   it('ignores reserved subdomains from hostname', () => {
     expect(
       resolveRestaurantSlug({
         hostname: 'menu.devchat.shop',
-        defaultSlug: 'churrascaria-gaucha',
-      }),
-    ).toBe('churrascaria-gaucha')
-  })
-
-  it('uses restaurant subdomain from hostname', () => {
-    expect(
-      resolveRestaurantSlug({
-        hostname: 'churrascaria-gaucha.devchat.shop',
-        defaultSlug: '',
-      }),
-    ).toBe('churrascaria-gaucha')
-  })
-
-  it('returns empty when no slug can be resolved', () => {
-    expect(
-      resolveRestaurantSlug({
-        hostname: 'menu.devchat.shop',
-        defaultSlug: '',
       }),
     ).toBe('')
   })
 
-  it('ignores reserved route slugs and falls back to default', () => {
+  it('uses VITE_MENU_HOST in development when hostname is localhost', () => {
+    vi.stubEnv('DEV', true)
+    vi.stubEnv('VITE_MENU_HOST', 'teste.devchat.shop')
+
     expect(
       resolveRestaurantSlug({
-        routeSlug: 'menu',
         hostname: 'localhost',
-        defaultSlug: 'menu',
       }),
-    ).toBe('menu')
+    ).toBe('teste')
+
+    vi.unstubAllEnvs()
+  })
+})
+
+describe('resolveMenuHost', () => {
+  it('uses VITE_MENU_HOST in development', () => {
+    vi.stubEnv('DEV', true)
+    vi.stubEnv('VITE_MENU_HOST', 'teste.devchat.shop')
+
+    expect(resolveMenuHost()).toBe('teste.devchat.shop')
+
+    vi.unstubAllEnvs()
   })
 })

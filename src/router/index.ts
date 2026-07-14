@@ -4,7 +4,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/:slug?',
+      path: '/',
       name: 'public-menu',
       component: () => import('@/modules/menu/pages/PublicMenuPage.vue'),
       meta: {
