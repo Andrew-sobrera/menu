@@ -1,74 +1,17 @@
 import { describe, expect, it } from 'vitest'
+import { MENU_HOST, RESTAURANT_SLUG } from '@/constants/app'
 import { resolveMenuHost, resolveRestaurantSlug } from '@/utils/resolveRestaurantSlug'
 
 describe('resolveRestaurantSlug', () => {
-  it('uses restaurant subdomain from hostname', () => {
-    expect(
-      resolveRestaurantSlug({
-        hostname: 'outro.devchat.shop',
-      }),
-    ).toBe('outro')
-  })
-
-  it('falls back to default slug for reserved subdomains', () => {
-    expect(
-      resolveRestaurantSlug({
-        hostname: 'menu.devchat.shop',
-      }),
-    ).toBe('manu')
-  })
-
-  it('falls back to default slug on workers.dev host', () => {
-    expect(
-      resolveRestaurantSlug({
-        hostname: 'menu.andrewsobrera683.workers.dev',
-      }),
-    ).toBe('manu')
-  })
-
-  it('falls back to default slug when hostname has no subdomain', () => {
-    expect(
-      resolveRestaurantSlug({
-        hostname: 'localhost',
-      }),
-    ).toBe('manu')
+  it('always returns the fixed restaurant slug', () => {
+    expect(resolveRestaurantSlug()).toBe(RESTAURANT_SLUG)
+    expect(resolveRestaurantSlug()).toBe('manu')
   })
 })
 
 describe('resolveMenuHost', () => {
-  it('uses current host when subdomain is valid', () => {
-    expect(
-      resolveMenuHost({
-        hostname: 'churrascaria.devchat.shop',
-        host: 'churrascaria.devchat.shop',
-      }),
-    ).toBe('churrascaria.devchat.shop')
-  })
-
-  it('falls back to default host when subdomain is missing', () => {
-    expect(
-      resolveMenuHost({
-        hostname: 'localhost',
-        host: 'localhost:5174',
-      }),
-    ).toBe('manu.devchat.shop')
-  })
-
-  it('falls back to default host for reserved subdomains', () => {
-    expect(
-      resolveMenuHost({
-        hostname: 'menu.devchat.shop',
-        host: 'menu.devchat.shop',
-      }),
-    ).toBe('manu.devchat.shop')
-  })
-
-  it('falls back to default host on workers.dev host', () => {
-    expect(
-      resolveMenuHost({
-        hostname: 'menu.andrewsobrera683.workers.dev',
-        host: 'menu.andrewsobrera683.workers.dev',
-      }),
-    ).toBe('manu.devchat.shop')
+  it('always returns the fixed menu host', () => {
+    expect(resolveMenuHost()).toBe(MENU_HOST)
+    expect(resolveMenuHost()).toBe('manu.devchat.shop')
   })
 })

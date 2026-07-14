@@ -4,14 +4,14 @@ import MenuHeader from '@/modules/menu/components/MenuHeader.vue'
 import MenuCategorySection from '@/modules/menu/components/MenuCategorySection.vue'
 import { usePublicMenu } from '@/composables/usePublicMenu'
 import { useMenuTheme } from '@/composables/useMenuTheme'
-import { APP_NAME } from '@/constants/app'
+import { APP_DOMAIN, APP_NAME } from '@/constants/app'
 
 const { slug, isValidSlug, menuQuery, sections } = usePublicMenu()
 
 const isLoading = computed(() => menuQuery.isLoading.value)
 const isError = computed(() => menuQuery.isError.value)
 const data = computed(() => menuQuery.data.value)
-const appDomain = import.meta.env.VITE_APP_DOMAIN ?? 'cardatche.com'
+const appDomain = APP_DOMAIN
 
 const appearance = computed(() => data.value?.restaurant.appearance)
 useMenuTheme(appearance)
