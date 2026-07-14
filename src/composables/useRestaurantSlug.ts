@@ -1,23 +1,21 @@
 import { computed } from 'vue'
 
-const RESERVED_SUBDOMAINS = new Set(['www', 'admin', 'api', 'app', 'staging', 'dev'])
+const RESERVED_SUBDOMAINS = new Set(['www', 'admin', 'api', 'app', 'menu', 'staging', 'dev'])
 
 export function useRestaurantSlug() {
   const slug = computed(() => {
     const override = import.meta.env.VITE_DEFAULT_SLUG
-    if (override) return override
-
     const hostname = window.location.hostname
     const parts = hostname.split('.')
 
     if (parts.length < 3) {
-      return ''
+      return override ?? ''
     }
 
     const subdomain = parts[0]?.toLowerCase() ?? ''
 
     if (!subdomain || RESERVED_SUBDOMAINS.has(subdomain)) {
-      return ''
+      return override ?? ''
     }
 
     return subdomain
